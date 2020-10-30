@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: raw
+    database: data_tests
+    schema: merchant_applications
+    description: Data provided for test
+
+    tables:
+      - name: DIM_OPPORTUNITY
+      - name: DIM_USER
+      - name: ONBOARDING_APPLICATIONS
+      - name: DIM_MERCHANT
+      - name: DIM_COUNTRY
