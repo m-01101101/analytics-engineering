@@ -12,3 +12,6 @@ sources:
       - name: ONBOARDING_APPLICATIONS
       - name: DIM_MERCHANT
       - name: DIM_COUNTRY
+
+    freshness:
+      warn_after: {count: 6, period: hour}

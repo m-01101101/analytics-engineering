@@ -53,7 +53,7 @@ SELECT ts::timestamp FROM start_ref
                 END
             WHEN {{biz_period}} = 'day'
             THEN 
-                CASE 
+                CASE
                     WHEN DAYOFWEEK(date_{{biz_period}}) NOT IN (6, 7)
                     THEN 1
                 END
