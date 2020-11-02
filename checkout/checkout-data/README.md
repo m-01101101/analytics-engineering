@@ -18,12 +18,13 @@ Using the data provided in the tables `onboarding_applications`, `dim_user` `dim
 - Lead Source Bucket
 - Final Reviewer Name
 - Total Onboarded Merchants in a given Month
+  - _not included in the dbt model as it represents a different level of aggregation_
 - Hours to Initial Review
-- Days to Onboard 
+- Days to Onboard
 
 ## Considerations
 
-1. onboarding_applications is an event-level data meaning that every change to an application is stored as a new record for that application.
+1. `onboarding_applications` is an event-level data meaning that every change to an application is stored as a new record for that application.
 2. A merchant is onboarded if the Merchant Account ID field is populated
 3. Hours to initial review is the number of business hours during weekdays (weekends excluded) between created and the first in progress dates
 4. Days to complete onboarding is the number of business days (weekends excluded) between created and first completed dates
