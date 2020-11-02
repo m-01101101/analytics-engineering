@@ -60,7 +60,7 @@ SELECT ts::timestamp FROM start_ref
         END) = 1
 )
 
-SELECT 
+SELECT
     ARRAY_SIZE(
         ARRAYAGG(date_{{biz_period}}) WITHIN GROUP (ORDER BY date_{{biz_period}})
     )
