@@ -69,7 +69,6 @@ WITH applications AS (
             WHEN progress = 2 
             THEN applications.application_created_to_modified_hours
         END application_to_initial_review_hours
-        --join to inefficient
         , CASE
             WHEN progress = 2 
             THEN applications.application_created_to_modified_biz_hours
