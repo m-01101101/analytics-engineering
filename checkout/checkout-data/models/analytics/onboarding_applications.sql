@@ -63,8 +63,8 @@ WITH applications AS (
                     THEN application_id
                 END) OVER(PARTITION BY application_created_month) AS total_merchants_onboarded_in_month
         */               
-        , applications.application_created_to_opportunity_hours
-        , applications.application_created_to_opportunity_biz_hours
+        , applications.opportunity_created_to_application_hours
+        , NULLIF(applications.opportunity_created_to_application_biz_hours, 0) AS opportunity_created_to_application_biz_hours
         , CASE
             WHEN progress = 2 
             THEN applications.application_created_to_modified_hours
@@ -76,7 +76,7 @@ WITH applications AS (
         END application_to_modified_biz_hours
         */
         , applications.days_to_onboard
-        , applications.buinsess_days_to_onboard
+        , NULLIF(applications.buinsess_days_to_onboard, 0) AS buinsess_days_to_onboard
     FROM applications
     LEFT JOIN merchants USING(merchant_account_id)
     LEFT JOIN opportunities USING(opportunity_id)

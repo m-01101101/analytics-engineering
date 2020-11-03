@@ -43,8 +43,8 @@ WITH applications AS (
             PARTITION BY application_id 
             ORDER BY COALESCE(modified_at, created_at)
             ) AS progress
-        , DATEDIFF(hour, applications.created_at, opportunities.created_at) AS application_created_to_opportunity_hours
-        , business_calendar_calcs.application_created_to_opportunity_biz_hours
+        , DATEDIFF(hour, opportunities.created_at, applications.created_at) AS opportunity_created_to_application_hours
+        , business_calendar_calcs.opportunity_created_to_application_biz_hours
         , DATEDIFF(hour, application_created_at, applications.modified_at) AS application_created_to_modified_hours
         -- , business_calendar_calcs.application_created_to_modified_biz_hours
     FROM applications
