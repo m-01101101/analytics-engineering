@@ -45,7 +45,7 @@ WITH applications AS (
     SELECT
         applications.application_id
         , COUNT(DISTINCT biz_cal_opportunity.date_hour) AS opportunity_created_to_application_biz_hours
-        , COUNT(biz_cal_modify.date_hour) AS application_created_to_modified_biz_hours
+        , COUNT(DISTINCT biz_cal_modify.date_hour) AS application_created_to_modified_biz_hours
         , COUNT(DISTINCT biz_cal_merchant.date_hour::date) AS application_created_to_complete_biz_days
         /* array too large, but would have preferred something akin to this
         , ARRAY_SIZE(ARRAYAGG(biz_cal_opportunity.date_hour)) AS application_created_to_opportunity_biz_hours
