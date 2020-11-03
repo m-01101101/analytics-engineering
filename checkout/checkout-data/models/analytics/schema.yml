@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg__dim_opportunity
+  - name: dim_opportunity
     description: Contains attribution data linked to an opportunity
     columns:
       - name: opportunity_id
@@ -10,8 +10,8 @@ models:
           - unique
           - not_null
 
-  - name: stg__dim_user
-    description: List of users (active and non-active)
+  - name: dim_user
+    description: List of users (active and non-active) who review applications
     columns:
       - name: user_id
         description: Primary key
@@ -19,16 +19,16 @@ models:
           - unique
           - not_null
 
-  - name: stg__onboarding_applications
-    description: Contains multiple records for each application as it is updated
+  - name: onboarding_applications
+    description: Contains key data tied to an application
     columns:
-      - name: pk
+      - name: application_id
         description: Primary key
         tests:
           - unique
           - not_null          
 
-  - name: stg__dim_merchant
+  - name: dim_merchant
     description: List of merchants
     columns:
       - name: merchant_account_id
@@ -37,7 +37,7 @@ models:
           - unique
           - not_null
 
-  - name: stg__dim_country
+  - name: dim_country
     description: List of countries, including risk level
     columns:
       - name: country_key
