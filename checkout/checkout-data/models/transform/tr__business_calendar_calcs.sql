@@ -43,10 +43,15 @@ WITH applications AS (
 
 , biz_calendar_calculations AS (
     SELECT
-        applications.pk
-        , ARRAY_SIZE(ARRAYAGG(biz_cal_opportunity.date_hour) WITHIN GROUP (ORDER BY biz_cal_opportunity.date_hour)) AS application_created_to_opportunity_biz_hours
-        , ARRAY_SIZE(ARRAYAGG(biz_cal_modify.date_hour) WITHIN GROUP (ORDER BY biz_cal_modify.date_hour)) AS application_created_to_modified_biz_hours
-        , ARRAY_SIZE(ARRAYAGG(DISTINCT biz_cal_merchant.date_hour::date) WITHIN GROUP (ORDER BY biz_cal_merchant.date_hour::date)) AS application_created_to_complete_biz_days
+        applications.application_id
+        , COUNT(biz_cal_opportunity.date_hour) AS application_created_to_opportunity_biz_hours
+        , COUNT(biz_cal_modify.date_hour) AS application_created_to_modified_biz_hours
+        , COUNT(DISTINCT biz_cal_merchant.date_hour::date) AS application_created_to_complete_biz_days
+        /* array too large, but would have preferred something akin to this
+        , ARRAY_SIZE(ARRAYAGG(biz_cal_opportunity.date_hour)) AS application_created_to_opportunity_biz_hours
+        , ARRAY_SIZE(ARRAYAGG(biz_cal_modify.date_hour)) AS application_created_to_modified_biz_hours
+        , ARRAY_SIZE(ARRAYAGG(DISTINCT biz_cal_merchant.date_hour::date)) AS application_created_to_complete_biz_days
+        */
     FROM applications
     LEFT JOIN opportunities USING(opportunity_id)
     LEFT JOIN merchants USING(merchant_account_id)
@@ -59,7 +64,7 @@ WITH applications AS (
     LEFT JOIN business_calendar AS biz_cal_merchant
         ON application_biz_start_date <= biz_cal_merchant.date_hour
         AND biz_cal_merchant.date_hour <= application_complete_at_tidy        
-    GROUP BY applications.pk
+    GROUP BY 1
 )
 
 SELECT * FROM biz_calendar_calculations

@@ -1,6 +1,6 @@
 {{ config(
         materialized="incremental",
-        unique_key="pk"
+        unique_key="application_id"
     )
 }}
 
@@ -8,12 +8,10 @@
 WITH applications AS (
     
     SELECT * FROM {{ ref('tr__onboarding_applications')}}
-    
     {% if is_incremental() %}
     -- this filter will only be applied on an incremental run
     WHERE COALESCE(modified_at, application_created_at) = (SELECT MAX(COALESCE(modified_at, application_created_at)) FROM {{ this }})
     {% endif %}
-
 )
 
 , opportunities AS (
@@ -43,6 +41,7 @@ WITH applications AS (
 , final AS (
     SELECT DISTINCT
         applications.application_id
+        , application_created_at::date AS application_created_at
         , DATE_TRUNC('month', applications.application_created_at) application_created_month
         , LAST_VALUE(applications.status) OVER(
             PARTITION BY application_id

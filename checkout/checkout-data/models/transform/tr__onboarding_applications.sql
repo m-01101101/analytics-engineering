@@ -50,7 +50,7 @@ WITH applications AS (
     FROM applications
     LEFT JOIN opportunities USING(opportunity_id)
     LEFT JOIN merchants USING(merchant_account_id)
-    LEFT JOIN business_calendar_calcs USING(pk)
+    LEFT JOIN business_calendar_calcs USING(application_id)
 )
 
 SELECT * FROM base

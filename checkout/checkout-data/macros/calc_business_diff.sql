@@ -39,7 +39,7 @@ macro call be called as:
     {{ dbt_utils.date_spine(
         datepart=biz_period,
         start_date=input_startdate[0][0],
-        end_date=DATEADD(hour, DATE_PART(hour, {{ p2 }}), {{ p2 }}::date)
+        end_date=p2
        )
     }}
 )
