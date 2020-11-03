@@ -12,6 +12,7 @@ WITH applications AS (
     -- this filter will only be applied on an incremental run
     WHERE COALESCE(modified_at, application_created_at) = (SELECT MAX(COALESCE(modified_at, application_created_at)) FROM {{ this }})
     {% endif %}
+
 )
 
 , opportunities AS (
