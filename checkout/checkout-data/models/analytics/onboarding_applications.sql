@@ -69,19 +69,25 @@ WITH applications AS (
             WHEN progress = 2 
             THEN applications.application_created_to_modified_hours
         END application_to_initial_review_hours
+        /* join to inefficient
         , CASE
             WHEN progress = 2 
             THEN applications.application_created_to_modified_biz_hours
         END application_to_modified_biz_hours
+        */
         , applications.days_to_onboard
         , applications.buinsess_days_to_onboard
     FROM applications
     LEFT JOIN merchants USING(merchant_account_id)
     LEFT JOIN opportunities USING(opportunity_id)
     LEFT JOIN country 
-        ON applications.country = country_key
+        ON applications.country = CASE 
+                                    WHEN len(applications.country) > 3
+                                    THEN country_iso_name
+                                    ELSE country_iso3_code
+                                END
     LEFT JOIN reviewer 
-        ON applications.final_reviewer_id = user_id    
+        ON applications.final_reviewer_id = user_id
 )
 
 SELECT * FROM final
