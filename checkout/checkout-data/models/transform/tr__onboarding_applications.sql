@@ -46,7 +46,7 @@ WITH applications AS (
         , DATEDIFF(hour, opportunities.created_at, applications.created_at) AS opportunity_created_to_application_hours
         , business_calendar_calcs.opportunity_created_to_application_biz_hours
         , DATEDIFF(hour, application_created_at, applications.modified_at) AS application_created_to_modified_hours
-        -- , business_calendar_calcs.application_created_to_modified_biz_hours
+        , business_calendar_calcs.application_created_to_modified_biz_hours
     FROM applications
     LEFT JOIN opportunities USING(opportunity_id)
     LEFT JOIN merchants USING(merchant_account_id)

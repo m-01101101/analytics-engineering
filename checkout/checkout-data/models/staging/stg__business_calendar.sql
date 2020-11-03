@@ -1,6 +1,3 @@
-{% set biz_start = 9 %}
-{% set biz_end = 18 %}
-
 WITH date_spine AS (
     {{ dbt_utils.date_spine(
         datepart="hour",
@@ -13,9 +10,9 @@ WITH date_spine AS (
 , biz_calendar AS (
     SELECT *
     FROM date_spine
-    WHERE DAYOFWEEK(date_hour) NOT IN (6, 7)
-        AND DATE_PART(hour, date_hour) >= {{ biz_start }}
-        AND DATE_PART(hour, date_hour) <= {{ biz_end }}
+        WHERE DAYOFWEEK(date_hour) NOT IN (6, 7)
+        AND DATE_PART(hour, date_hour) >= '{{ var("biz_start_hour") }}'
+        AND DATE_PART(hour, date_hour) <= '{{ var("biz_start_hour") }}'
 )
 
 SELECT * FROM biz_calendar

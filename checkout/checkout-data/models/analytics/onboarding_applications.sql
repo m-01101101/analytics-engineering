@@ -69,12 +69,11 @@ WITH applications AS (
             WHEN progress = 2 
             THEN applications.application_created_to_modified_hours
         END application_to_initial_review_hours
-        /* join to inefficient
+        --join to inefficient
         , CASE
             WHEN progress = 2 
             THEN applications.application_created_to_modified_biz_hours
         END application_to_modified_biz_hours
-        */
         , applications.days_to_onboard
         , NULLIF(applications.buinsess_days_to_onboard, 0) AS buinsess_days_to_onboard
     FROM applications
